@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sortable Table</title>
+  <style>
+    table {
+      width: 60%;
+      margin: 40px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    th:hover {
+      background-color: #f0f0f0;
+    }
+
+    .asc::after {
+      content: " ▲";
+    }
+
+    .desc::after {
+      content: " ▼";
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align: center;">Click Table Headers to Sort</h2>
+  <table id="myTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Alice</td><td>23</td><td>New York</td></tr>
+      <tr><td>Bob</td><td>31</td><td>Chicago</td></tr>
+      <tr><td>Charlie</td><td>25</td><td>San Francisco</td></tr>
+      <tr><td>Diana</td><td>28</td><td>Los Angeles</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    const table = document.getElementById("myTable");
+    const headers = table.querySelectorAll("th");
+    let sortDirections = Array.from(headers).map(() => true); // true = ascending
+
+    headers.forEach((header, index) => {
+      header.addEventListener("click", () => {
+        sortTable(index, sortDirections[index]);
+        sortDirections[index] = !sortDirections[index]; // Toggle direction
+
+        // Reset all header arrows
+        headers.forEach(h => h.classList.remove("asc", "desc"));
+        header.classList.add(sortDirections[index] ? "desc" : "asc"); // Because it's toggled AFTER
+      });
+    });
+
+    function sortTable(columnIndex, ascending) {
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+
+      rows.sort((a, b) => {
+        let valA = a.cells[columnIndex].innerText.trim();
+        let valB = b.cells[columnIndex].innerText.trim();
+
+        // Try to compare as numbers if possible
+        let numA = parseFloat(valA);
+        let numB = parseFloat(valB);
+        if (!isNaN(numA) && !isNaN(numB)) {
+          return ascending ? numA - numB : numB - numA;
+        } else {
+          return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        }
+      });
+
+      // Re-append rows in new order
+      rows.forEach(row => tbody.appendChild(row));
+    }
+  </script>
+
+</body>
+</html>
