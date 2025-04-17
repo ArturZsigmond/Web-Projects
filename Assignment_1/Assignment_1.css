@@ -1,0 +1,45 @@
+body {
+    width: 1024px;
+    height: 768px;
+    margin: auto;
+    background-color: #eee;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header, footer {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    background-color: #666;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: block;
+    padding: 10px;
+}
+
+section, article, aside {
+    padding: 10px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+}
+
+img, video {
+    max-width: 100%;
+}

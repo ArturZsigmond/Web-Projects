@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Link Remover</title>
+</head>
+<body>
+  <h2>the links</h2>
+  <div id="links-container">
+    <a href="http://www.scs.ubbcluj.ro/info">Bad Link 1</a><br>
+    <a href="https://google.com">Good Link</a><br>
+    <a href="http://www.scs.ubbcluj.ro/contact">Bad Link 2</a><br>
+    <a href="http://www.scs2.ubbcluj.ro/contact">Good Link 3</a><br>
+    <a href="http://www.scs3.ubbcluj.ro/contact">Good Link 4</a><br>
+    <a href="https://wikipedia.org">Good Link 2</a><br>
+  </div>
+
+  <button id="toggle-btn">Remove Links</button>
+
+  <script>
+    const button = document.getElementById('toggle-btn');
+    const container = document.getElementById('links-container');
+    const removedLinks = [];
+
+    let removed = false;
+
+    button.addEventListener('click', () => {
+      if (!removed) {
+        const links = container.querySelectorAll('a');
+        links.forEach(link => {
+        const regex  = new RegExp('^http://www.scs.ubbcluj.ro/.*');
+        if (regex.test(link.href)) {
+            removedLinks.push(link);
+            const br = link.nextSibling;
+            if (br && br.nodeName === "BR") {
+            removedLinks.push(br);
+            br.remove();
+    }
+
+    link.remove();
+  }
+});
+
+        button.textContent = 'restore links';
+        removed = true;
+      } else {
+        
+        removedLinks.forEach(node => {
+  container.appendChild(node);
+});
+
+
+        removedLinks.length = 0;
+        button.textContent = 'remove links ';
+        removed = false;
+      }
+    });
+  </script>
+</body>
+</html>

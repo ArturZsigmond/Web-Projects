@@ -1,0 +1,59 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 10px;
+    perspective: 600px;
+}
+
+.hex {
+    width: 100px;
+    height: 115px;
+    background: green;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: transform 0.5s ease-in-out;
+}
+
+
+.hex:hover {
+    animation: pop 0.5s infinite ease-in-out forwards;
+}
+
+.grid:hover .hex:not(:hover){
+
+    transform: scale(0.8);
+    animation: pop2 0.5s infinite ease-in-out forwards;
+}
+
+
+@keyframes pop2 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: translateY(+10px) scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: translate(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.4);
+    }
+    100% {
+        transform: translate(0) scale(1);
+    }
+}

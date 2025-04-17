@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>code</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .highlight {
+      background-color: green;
+      padding: 2px;
+    }
+    input.word-editor {
+      font-size:  inherit;
+      font-family: inherit;
+      background-color: lightgreen;
+      border: 1px solid gray;
+      padding: 1px;
+      width: auto;
+    }
+    .editable {
+      outline: none;
+      background-color: lightyellow;
+    }
+  </style>
+</head>
+<body>
+
+  <p>
+    This is a some text, if you double click on a word, all the matching words will be highlighted.
+    You can edit the highlighted word, and all other matching words will change to the new word.
+  </p>
+  
+  <div>
+    <img src="image1.jpg" alt="Image 1" style="width:200px; height:auto;">
+    <img src="image2.jpg" alt="Image 2" style="width:200px; height:auto;">
+    <img src="image3.jpg" alt="Image 3" style="width:200px; height:auto;">
+  </div>
+
+
+  <script>
+    $(document).ready(function () {
+
+      function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+
+      $(document).on('dblclick', function () {
+        $('.highlight').each(function () {
+          $(this).replaceWith($(this).text());
+        });
+
+        const selectedText = window.getSelection().toString().trim();
+        if (selectedText.length > 0) {
+          const word = selectedText;
+          const regex = new RegExp('\\b' + escapeRegExp(word) + '\\b', 'g');
+
+          $('p').each(function () {
+            const html = $(this).html().replace(regex, function (match) {
+              return `<span class="highlight">${match}</span>`;
+            });
+            $(this).html(html);
+          });
+
+          const editableSpan = $('.highlight').first();
+          editableSpan.addClass('editable')
+                      .attr('contenteditable', 'true')
+                      .focus();
+
+        
+
+          const range = document.createRange();
+          const sel = window.getSelection();
+          range.selectNodeContents(editableSpan[0]);
+          range.collapse(false); 
+          sel.removeAllRanges();
+          sel.addRange(range);
+
+          editableSpan.on('input', function () {
+            const newWord = $(this).text();
+            $('.highlight').not(this).text(newWord);
+          });
+
+          editableSpan.on('keydown', function (e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              $(this).removeAttr('contenteditable').removeClass('editable');
+            }
+          });
+
+          editableSpan.on('blur', function () {
+            $(this).removeAttr('contenteditable').removeClass('editable');
+          });
+        }
+      });
+
+    });
+  </script>
+
+</body>
+</html>
