@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Double-Click List Mover</title>
+  <style>
+    select {
+      width: 150px;
+      height: 120px;
+    }
+    .container {
+      display: flex;
+      gap: 30px;
+      margin-top: 50px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Double Click to Move Items Between Lists</h2>
+  <div class="container">
+    <div>
+      <label for="list1">List 1</label><br>
+      <select id="list1" multiple ondblclick="moveItem(this, 'list2')">
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+        <option>Date</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="list2">List 2</label><br>
+      <select id="list2" multiple ondblclick="moveItem(this, 'list1')">
+        <option>Orange</option>
+        <option>Peach</option>
+      </select>
+    </div>
+  </div>
+
+  <script>
+    function moveItem(sourceSelect, targetId) {
+      const targetSelect = document.getElementById(targetId);
+      const selectedOptions = Array.from(sourceSelect.selectedOptions);
+      
+      selectedOptions.forEach(option => {
+        sourceSelect.removeChild(option);
+        targetSelect.appendChild(option);
+      });
+    }
+  </script>
+</body>
+</html>
