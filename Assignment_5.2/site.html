@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editable Combo Box</title>
+  <style>
+    .combo-container {
+      display: flex;
+      gap: 10px;
+      margin: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">Editable Box</h2>
+  <div class="combo-container">
+    <input type="text" id="comboInput" placeholder="Type or select..." onkeypress="handleEnter(event)">
+    <select id="comboSelect" onchange="updateInput()">
+      <option>Apple</option>
+      <option>Banana</option>
+      <option>Cherry</option>
+    </select>
+  </div>
+
+  <script>
+    function updateInput() {
+      const select = document.getElementById("comboSelect");
+      const input = document.getElementById("comboInput");
+      input.value = select.value;
+    }
+
+    function handleEnter(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById("comboInput");
+        const select = document.getElementById("comboSelect");
+        const value = input.value.trim();
+
+        // Check if the value already exists
+        let exists = Array.from(select.options).some(opt => opt.value === value);
+        
+        if (!exists && value !== "") {
+          const newOption = document.createElement("option");
+          newOption.text = value;
+          select.add(newOption);
+          select.value = value; 
+        }
+      }
+    }
+  </script>
+</body>
+</html>
