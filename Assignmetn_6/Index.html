@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Guestbook</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Guestbook</h1>
+  
+  <form id="guestbook-form">
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="title" placeholder="Title" required>
+    <textarea name="comment" placeholder="Comment" required></textarea>
+    <button type="submit">Add Entry</button>
+  </form>
+
+  <div id="entries-container"></div>
+  <button id="prev-page">Previous</button>
+  <button id="next-page">Next</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
