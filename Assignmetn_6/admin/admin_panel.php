@@ -1,7 +1,9 @@
 <?php
 require '../includes/db.php';
+
 $entries = $pdo->query("SELECT * FROM entries ORDER BY date_created DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +13,16 @@ $entries = $pdo->query("SELECT * FROM entries ORDER BY date_created DESC")->fetc
 </head>
 <body>
   <h1>Admin Panel</h1>
+
   <table>
-    <tr><th>Email</th><th>Title</th><th>Comment</th><th>Date</th><th>Actions</th></tr>
+    <tr>
+      <th>Email</th>
+      <th>Title</th>
+      <th>Comment</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+
     <?php foreach ($entries as $entry): ?>
       <tr>
         <form method="post" action="../update_entry.php">
@@ -28,7 +38,7 @@ $entries = $pdo->query("SELECT * FROM entries ORDER BY date_created DESC")->fetc
           <input type="hidden" name="id" value="<?= $entry['id'] ?>">
           <button type="submit">Delete</button>
         </form>
-        </td>
+          </td>
       </tr>
     <?php endforeach; ?>
   </table>
