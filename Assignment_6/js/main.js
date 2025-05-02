@@ -10,9 +10,10 @@ function loadEntries() {
         const div = document.createElement('div');
         div.className = 'entry';
         div.innerHTML = `<h3>${entry.title}</h3>
-                         <p><strong>${entry.author_email}</strong></p>
-                         <p>${entry.comment}</p>
-                         <small>${entry.date_created}</small>`;
+                 <p><strong>${entry.author_email}</strong></p>
+                 <p>${entry.comment}</p>
+                 <p>Rating: ${entry.rating} stars</p>
+                 <small>${entry.date_created}</small>`;
         container.appendChild(div);
       }
     });
@@ -20,11 +21,29 @@ function loadEntries() {
 
 document.getElementById('guestbook-form').addEventListener('submit', function(e) {
   e.preventDefault();
+
+  const title = this.title.value.trim();
+  const comment = this.comment.value.trim();
+
+  if (title.length < 3) {
+    alert("Title must be at least 3 characters long.");
+    return;
+  }
+
+  if (comment.length < 5) {
+    alert("Comment must be at least 5 characters long.");
+    return;
+  }
+
   const formData = new FormData(this);
+
   fetch('add_entry.php', {
     method: 'POST',
     body: formData
-  }).then(() => {
+  }).then(res => {
+    if (!res.ok) {
+      return res.text().then(msg => alert("Server error: " + msg));
+    }
     this.reset();
     loadEntries();
   });

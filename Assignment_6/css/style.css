@@ -1,29 +1,28 @@
 body {
-    font-family: sans-serif;
-    margin: 2em;
-    max-width: 600px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    margin-bottom: 2em;
-  }
-  
-  input, textarea, button {
-    padding: 0.5em;
-  }
-  
-  .entry {
-    border: 1px solid #ccc;
-    padding: 1em;
-    margin-bottom: 1em;
-  }
-  
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 0.5em;
-  }
-  
+  font-family: sans-serif;
+  margin: 2em;
+  max-width: 600px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 2em;
+}
+
+input, textarea, button {
+  padding: 0.5em;
+}
+
+.entry {
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 0.5em;
+}
