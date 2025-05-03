@@ -18,7 +18,7 @@ These are just small experiments — double-click interactions, editable combo b
 - How to make elements respond to user actions
 - How to update the DOM dynamically
 - How to mix in small animations or UI feedback
-- How to keep code clean and modular (still learning this part!)
+- How to keep code clean and modular (still learning this part!) 
 
 ## 🔭 What’s Next?
 
