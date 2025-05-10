@@ -1,16 +1,18 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST");
+header("Content-Type: text/plain");
+
 require 'includes/db.php';
 
-$id = $_POST['id'] ?? '';
+$id = intval($_POST['id'] ?? 0);
 
-if ($id) {
+if ($id > 0) {
     $stmt = $pdo->prepare("DELETE FROM entries WHERE id = ?");
     $stmt->execute([$id]);
-    header("Location: admin/admin_panel.php");
-    exit;
-
+    echo 'Deleted';
 } else {
     http_response_code(400);
-    echo 'Missing ID';
+    echo 'Invalid ID.';
 }
-?>

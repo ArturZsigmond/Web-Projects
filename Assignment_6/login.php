@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+header("Access-Control-Allow-Origin: http://localhost:4200");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST");
+header("Content-Type: text/plain"); // or application/json
+
 require 'includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,28 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password_hash'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $email;
-        header("Location: index.php");
-        exit;
+        echo "Login successful.";
     } else {
-        $error = "Invalid email or password.";
+        http_response_code(401);
+        echo "Invalid credentials.";
     }
 }
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Log In</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <?php if (isset($error)): ?>
-        <p style="color:red"><?= $error ?></p>
-    <?php endif; ?>
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit">Log In</button>
-    </form>
-</body>
-</html>
