@@ -1,0 +1,5 @@
+com\example\puzzle\DBUtil.class
+com\example\puzzle\LoginServlet.class
+com\example\puzzle\RegisterServlet.class
+com\example\puzzle\LogoutServlet.class
+com\example\puzzle\PuzzleServlet.class
